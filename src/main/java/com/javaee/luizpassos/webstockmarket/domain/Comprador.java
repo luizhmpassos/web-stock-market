@@ -1,12 +1,14 @@
 package com.javaee.luizpassos.webstockmarket.domain;
 
-import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,21 +16,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Acao {
-
+public class Comprador {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	private String codigo;
-	private Date compra;
-	private Double valor_inicial;
-	private Double valor_atual;	
-
-	@ManyToOne
-    private Comprador comprador;
+	private String nome;
+	private String email;
 	
-	@ManyToOne
-    private Empresa empresa;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "comprador")
+	private Set<Acao> acoes = new HashSet<>();
 	
 }
