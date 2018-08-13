@@ -26,5 +26,10 @@ public class Empresa {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
 	private Set<Acao> acoes = new HashSet<>();
+	
+	public void addAcao(Acao acao) {
+		acao.setEmpresa(this);
+		this.acoes.add(acao);
+	}
 
 }

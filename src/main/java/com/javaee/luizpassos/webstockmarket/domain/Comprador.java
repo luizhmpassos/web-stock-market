@@ -28,4 +28,9 @@ public class Comprador {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "comprador")
 	private Set<Acao> acoes = new HashSet<>();
 	
+	public void addAcao(Acao acao) {
+		acao.setComprador(this);
+		this.acoes.add(acao);
+	}
+	
 }

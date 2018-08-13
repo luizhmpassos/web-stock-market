@@ -6,6 +6,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class AcaoDTO {
 
 	private Long id;
@@ -23,7 +28,10 @@ public class AcaoDTO {
 	@NotNull
 	private Double valor_atual;
 	
-	private CompradorDTO comprador;
-	private EmpresaDTO empresa;	
+	
+	private Long comprador;
+	
+	@NotNull
+	private Long empresa;	
 	
 }

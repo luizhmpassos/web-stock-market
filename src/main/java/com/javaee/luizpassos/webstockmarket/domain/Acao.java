@@ -31,4 +31,6 @@ public class Acao {
 	@ManyToOne
     private Empresa empresa;
 	
+	
+	
 }
