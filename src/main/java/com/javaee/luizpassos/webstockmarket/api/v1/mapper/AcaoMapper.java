@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import com.javaee.luizpassos.webstockmarket.api.v1.model.AcaoDTO;
 import com.javaee.luizpassos.webstockmarket.domain.Acao;
+import com.javaee.luizpassos.webstockmarket.domain.Comprador;
 import com.javaee.luizpassos.webstockmarket.domain.Empresa;
+import com.javaee.luizpassos.webstockmarket.repositories.CompradorRepository;
 import com.javaee.luizpassos.webstockmarket.repositories.EmpresaRepository;
 //import com.javaee.luizpassos.webstockmarket.repositories.CompradorRepository;
 //import com.javaee.luizpassos.webstockmarket.repositories.EmpresaRepository;
@@ -23,11 +25,11 @@ public class AcaoMapper {
 	*/	
 	
 	private EmpresaRepository empresaRepository;
-	//private CompradorRepository compradorRepository;	
+	private CompradorRepository compradorRepository;	
 	
-	public AcaoMapper(EmpresaRepository empresaRepository) {				
+	public AcaoMapper(EmpresaRepository empresaRepository, CompradorRepository compradorRepository) {				
 		this.empresaRepository = empresaRepository;
-		//	this.compradorRepository = compradorRepository;		
+		this.compradorRepository = compradorRepository;		
 	}
 	
 	
@@ -37,11 +39,15 @@ public class AcaoMapper {
 		acaoDTO.setCodigo(acao.getCodigo());
 		acaoDTO.setCompra(acao.getCompra());
 		acaoDTO.setValor_inicial(acao.getValor_inicial());
-		acaoDTO.setValor_atual(acao.getValor_atual());
+		acaoDTO.setValor_atual(acao.getValor_atual());		
 		
+		if (acao.getComprador() !=  null) {			
+			acaoDTO.setComprador(acao.getComprador().getId());
+		}
 		
-		//acaoDTO.setComprador(acao.getComprador().getId());
-		acaoDTO.setEmpresa(acao.getEmpresa().getId());
+		if (acao.getEmpresa() !=  null) {
+			acaoDTO.setEmpresa(acao.getEmpresa().getId());
+		}
 		return acaoDTO;
 	}
 
@@ -57,11 +63,18 @@ public class AcaoMapper {
 				
 		acao.setEmpresa(idToEmpresa(acaoDTO.getEmpresa()));
 		
+		if (acaoDTO.getComprador() != null) {
+			acao.setComprador(idToComprador(acaoDTO.getComprador()));
+		}
+		
 		return acao;
     }
 
 	
-	private Empresa idToEmpresa(Long idEmpresa){		
+	private Empresa idToEmpresa(Long idEmpresa){
+		if (idEmpresa == null) {
+			return null;
+		}
 		Optional<Empresa> empresaOptional = empresaRepository.findById(idEmpresa);
 		if (!empresaOptional.isPresent()) {
             throw new IllegalArgumentException("Empresa não cadastrada: " + idEmpresa.toString() );
@@ -69,6 +82,21 @@ public class AcaoMapper {
         return empresaOptional.get();
 	}
 	
+	private Comprador idToComprador(Long idComprador){
+		if (idComprador == null) {
+			return null;
+		}
+		
+		System.out.println("Comprador: " + idComprador);
+		Optional<Comprador> compradorOptional = compradorRepository.findById(idComprador);
+		System.out.println("compradorOptional ok");
+		if (!compradorOptional.isPresent()) {
+			System.out.println("Comprador localizado");
+            throw new IllegalArgumentException("Comprador não cadastrado: " + idComprador.toString() );
+        }
+		
+        return compradorOptional.get();
+	}
 	
 
 	/*

@@ -22,7 +22,7 @@ public class CompradorMapper {
 		this.acaoRepository = acaoRepository;		
 	}
 	
-	public CompradorDTO CompradorToCompradorDTO(Comprador comprador) {
+	public CompradorDTO compradorToCompradorDTO(Comprador comprador) {
 		final CompradorDTO compradorDTO = new CompradorDTO();
 		compradorDTO.setId(comprador.getId());
 		compradorDTO.setNome(comprador.getNome());

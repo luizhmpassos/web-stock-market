@@ -26,12 +26,11 @@ public class AcaoDTO {
 	private Double valor_inicial;
 	
 	@NotNull
-	private Double valor_atual;
-	
+	private Double valor_atual;	
 	
 	private Long comprador;
 	
 	@NotNull
-	private Long empresa;	
+	private Long empresa;
 	
 }
