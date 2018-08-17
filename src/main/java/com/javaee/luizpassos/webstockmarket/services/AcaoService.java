@@ -9,9 +9,10 @@ public interface AcaoService {
 
 	AcaoDTO getById(Long id);
 
-	AcaoDTO createNew(AcaoDTO empresa);
+	AcaoDTO createNew(AcaoDTO acao);
 
-	AcaoDTO save(Long id, AcaoDTO empresa);
+	AcaoDTO save(Long id, AcaoDTO acao);
 
+	AcaoDTO transfer(Long id, AcaoDTO acao);
 	//void deleteById(Long id);
 }

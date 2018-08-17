@@ -51,5 +51,11 @@ public class AcaoController {
     public AcaoDTO update(@PathVariable Long id, @RequestBody AcaoDTO acao){
         return acaoService.save(id, acao);
     }
+    
+    @PutMapping({"/transfer/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public AcaoDTO transfer(@PathVariable Long id, @RequestBody AcaoDTO acao) {
+    	return acaoService.transfer(id, acao);
+    }
 
 }
